@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to Rock Paper and Scissors!</h1>
+    <h1>Welcome to Rock, Paper and Scissors!</h1>
     <p>Choose:</p>
     <div id="container">
         <button id="rock">Rock</button>
@@ -21,6 +21,32 @@
         const choices = ["rock", "paper", "scissors"];
         return choices[Math.floor(Math.random() * choices.length)];
     }
+
+    function check(humanChoice, computerChoice) {
+        let result;
+        if(computerChoice == "rock" && humanChoice == "paper") {
+            result = "you";
+        }
+        else if(computerChoice == "rock" && humanChoice == "scissors") {
+            result = "computer";
+        }
+        else if(computerChoice == "paper" && humanChoice == "rock") {
+            result = "computer";
+        }
+        else if(computerChoice == "paper" && humanChoice == "scissors") {
+            result = "you";
+        }
+        else if(computerChoice == "scissors" && humanChoice == "rock") {
+            result = "you";
+        }
+        else if(computerChoice == "scissors" && humanChoice == "paper") {
+            result = "computer";
+        }
+        else {
+            result = "draw";
+        }
+        return result;
+    }
     
     function playGame() {
         let computer = 0;
@@ -29,27 +55,42 @@
         const div = document.querySelector("#score");
         const yourScore = document.createElement("p"); 
         const computerScore = document.createElement("p");
+        const result = document.createElement("p");
+        div.appendChild(result);
         div.appendChild(yourScore);
         div.appendChild(computerScore);
 
         const buttons = document.querySelectorAll("#container button");
             buttons.forEach((button) => {
-                button.addEventListener("click", () => {;
-                    div.removeChild(yourScore);
-                    div.removeChild(computerScore);
-                    yourScore.textContent = "Your score: " + you;
-                    computerScore.textContent = "Computer score: " + computer;
-                    div.appendChild(yourScore);
-                    div.appendChild(computerScore);
-                    computer++;
+                button.addEventListener("click", () => {
+                    const computerChoice = getComputerChoice();
+                    let whoWon = "";
+                    if(check(button.id, computerChoice) == "you") {
+                        you++;
+                        whoWon = "You won!";
+                    }
+                    else if(check(button.id, computerChoice) == "computer") {
+                        computer++;
+                        whoWon = " You lost!";
+                    }
+                    else {
+                        whoWon = " It's a draw!";
+                    }
+                    
+                    if(computer < 5 && you < 5) {
+                        result.textContent = `You chose ${button.id} and computer chose ${computerChoice}.` + whoWon;
+                        yourScore.textContent = "Your score: " + you;
+                        computerScore.textContent = "Computer score: " + computer;
+                    }
+                    else {
+                        alert("GAME IS OVER! Thw winner is " + check(button.id, computerChoice));
+                    }
                 });
             });
     }
 
     playGame();
     
-    
-
 </script>
 </body>
 </html>
