@@ -6,70 +6,49 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Welcome to Rock Paper and Scissors!</h1>
+    <p>Choose:</p>
+    <div id="container">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div id="score">
+
+    </div>
 <script>
     function getComputerChoice() {
         const choices = ["rock", "paper", "scissors"];
         return choices[Math.floor(Math.random() * choices.length)];
     }
     
-    function getHumanChoice() {
-        let choice = prompt("What do you choose? ");
-        return choice;
-    }
-    
     function playGame() {
-        let humanScore = 0;
-        let computerScore = 0;
-        for(let i = 0; i < 5; i++) {
-            const humanChoice = getHumanChoice().toLowerCase();
-            const computerChoice = getComputerChoice();
-            console.log("You picked " + humanChoice);
-            console.log("Computer picked " + computerChoice);
-            if(humanChoice == "rock" && computerChoice == "scissors") {
-                console.log("You win! Rock beats scissors");
-                humanScore++;   
-            }
-            else if(humanChoice == "scissors" && computerChoice == "paper") {
-                console.log("You win! Scissors beats paper");   
-                humanScore++;  
-            }
-            else if(humanChoice == "paper" && computerChoice == "rock") {
-                console.log("You win! Paper beats rock");   
-                humanScore++;  
-            }
-            else if(computerChoice == "rock" && humanChoice == "scissors") {
-                console.log("You lose! Rock beats scissors");   
-                computerScore++;
-            }
-            else if(computerChoice == "scissors" && humanChoice == "paper") {
-                console.log("You lose! Scissors beats paper");  
-                computerScore++; 
-            }
-            else if(computerChoice == "paper" && humanChoice == "rock") {
-                console.log("You lose! Paper beats rock");
-                computerScore++;   
-            }
-            else {
-                console.log("Draw!");
-            }
-            console.log("Current score: ");
-            console.log("Computer " + computerScore);
-            console.log("You " + humanScore);
-            
-        }
+        let computer = 0;
+        let you = 0;
 
-        if(humanScore > computerScore) {
-            alert("You won!");
-        }
-        else if(computerScore > humanScore) {
-            alert("You lost!")
-        }
-        else {
-            alert("It's a draw!");
-        }
+        const div = document.querySelector("#score");
+        const yourScore = document.createElement("p"); 
+        const computerScore = document.createElement("p");
+        div.appendChild(yourScore);
+        div.appendChild(computerScore);
+
+        const buttons = document.querySelectorAll("#container button");
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {;
+                    div.removeChild(yourScore);
+                    div.removeChild(computerScore);
+                    yourScore.textContent = "Your score: " + you;
+                    computerScore.textContent = "Computer score: " + computer;
+                    div.appendChild(yourScore);
+                    div.appendChild(computerScore);
+                    computer++;
+                });
+            });
     }
 
     playGame();
+    
+    
 
 </script>
 </body>
