@@ -3,94 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Rock-Paper-Scissors</title>
 </head>
 <body>
-    <h1 style="color: red;">Welcome to Rock, Paper and Scissors!</h1>
-    <p>Choose:</p>
-    <div id="container">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+    <div class="container">
+        <div class="choose">Choose!</div>
+        <div class="images">
+            <img src="images/rock.png" alt="rock" class="rock">
+            <img src="images/paper.png" alt="paper" class="paper">
+            <img src="images/scissors.webp" alt="scissors" class="scissors">
+        </div>
+        <div class="result">Welcome to Rock Paper and Scissors!</div>
+        <div class="score">
+            <div class="player">
+                Player score: 0
+            </div>
+            <div class="computer">
+                Computer score: 0
+            </div>
+        </div>
     </div>
-    <div id="score">
-
-    </div>
-<script>
-    function getComputerChoice() {
-        const choices = ["rock", "paper", "scissors"];
-        return choices[Math.floor(Math.random() * choices.length)];
-    }
-
-    function check(humanChoice, computerChoice) {
-        let result;
-        if(computerChoice == "rock" && humanChoice == "paper") {
-            result = "you";
-        }
-        else if(computerChoice == "rock" && humanChoice == "scissors") {
-            result = "computer";
-        }
-        else if(computerChoice == "paper" && humanChoice == "rock") {
-            result = "computer";
-        }
-        else if(computerChoice == "paper" && humanChoice == "scissors") {
-            result = "you";
-        }
-        else if(computerChoice == "scissors" && humanChoice == "rock") {
-            result = "you";
-        }
-        else if(computerChoice == "scissors" && humanChoice == "paper") {
-            result = "computer";
-        }
-        else {
-            result = "draw";
-        }
-        return result;
-    }
-    
-    function playGame() {
-        let computer = 0;
-        let you = 0;
-
-        const div = document.querySelector("#score");
-        const yourScore = document.createElement("p"); 
-        const computerScore = document.createElement("p");
-        const result = document.createElement("p");
-        div.appendChild(result);
-        div.appendChild(yourScore);
-        div.appendChild(computerScore);
-
-        const buttons = document.querySelectorAll("#container button");
-            buttons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const computerChoice = getComputerChoice();
-                    let whoWon = "";
-                    if(check(button.id, computerChoice) == "you") {
-                        you++;
-                        whoWon = "You won!";
-                    }
-                    else if(check(button.id, computerChoice) == "computer") {
-                        computer++;
-                        whoWon = " You lost!";
-                    }
-                    else {
-                        whoWon = " It's a draw!";
-                    }
-                    
-                    if(computer < 5 && you < 5) {
-                        result.textContent = `You chose ${button.id} and computer chose ${computerChoice}.` + whoWon;
-                        yourScore.textContent = "Your score: " + you;
-                        computerScore.textContent = "Computer score: " + computer;
-                    }
-                    else {
-                        alert("GAME IS OVER! Thw winner is " + check(button.id, computerChoice));
-                    }
-                });
-            });
-    }
-
-    playGame();
-    
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
