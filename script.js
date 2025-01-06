@@ -71,7 +71,6 @@ function playGame() {
                 computerText.textContent = "Computer score: " + computerScore;
             } 
         
-
             if(playerScore == 5) {
                 setTimeout(() => alert("You won! Congratulations. Refresh this page to play again!"), 0);
             }
